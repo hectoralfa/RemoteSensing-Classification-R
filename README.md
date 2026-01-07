@@ -1,138 +1,118 @@
-Métodos estadísticos de aprendizaje supervisado para la detección de cobertura del suelo a partir de imágenes satelitales
-📌 Resumen
+# Métodos estadísticos de aprendizaje supervisado para la detección de cobertura del suelo a partir de imágenes satelitales
 
-Este repositorio contiene la implementación en R de un proyecto de tesis de licenciatura en Actuaría (UNAM), cuyo objetivo es clasificar cobertura del suelo (agricultura vs. no agricultura) a partir de imágenes satelitales Landsat 5, utilizando métodos estadísticos de aprendizaje supervisado.
+## 📌 Resumen 
 
-El trabajo adopta un enfoque reproducible y comparativo, integrando:
+Este repositorio contiene la implementación en **R** de un proyecto de **tesis de licenciatura en Actuaría (UNAM)**, cuyo objetivo es **clasificar cobertura del suelo (agricultura vs. no agricultura)** a partir de imágenes satelitales **Landsat 5**, utilizando **métodos estadísticos de aprendizaje supervisado**.
 
-Preprocesamiento de imágenes satelitales
+El trabajo adopta un enfoque **reproducible y comparativo**, integrando:
 
-Generación de variables espectrales y de textura
+- Preprocesamiento de imágenes satelitales  
+- Generación de variables espectrales y de textura  
+- Entrenamiento de modelos de clasificación  
+- Evaluación rigurosa del desempeño predictivo  
 
-Entrenamiento de modelos de clasificación
+Se pone especial énfasis en **limitaciones prácticas**, **costos computacionales** y **generalización temporal**, aspectos relevantes tanto en contextos **académicos** como **industriales**.
 
-Evaluación rigurosa del desempeño predictivo
+---
 
-Se pone especial énfasis en limitaciones prácticas, costos computacionales y generalización temporal, aspectos relevantes tanto en contextos académicos como industriales.
-
-🎓 Contexto académico
+## 🎓 Contexto académico
 
 Este repositorio corresponde a la tesis:
 
-“Métodos estadísticos de aprendizaje supervisado para la detección de cobertura del suelo a través de imágenes satelitales”
-Autor: Héctor Miguel Olivares García
-Licenciatura en Actuaría – Facultad de Ciencias, UNAM (2023)
+> **“Métodos estadísticos de aprendizaje supervisado para la detección de cobertura del suelo a través de imágenes satelitales”**  
+> **Autor:** Héctor Miguel Olivares García  
+> **Licenciatura en Actuaría – Facultad de Ciencias, UNAM (2023)**
 
-El documento completo de la tesis se encuentra en la carpeta doc/.
+📄 El documento completo de la tesis se encuentra en la carpeta `doc/`.
 
-🌍 Motivación y problema abordado
+---
+
+## 🌍 Motivación y problema abordado
 
 La clasificación de cobertura del suelo es una herramienta clave para:
 
-Monitoreo ambiental
+- Monitoreo ambiental  
+- Planeación territorial  
+- Evaluación de políticas públicas  
+- Estudios de cambio climático y sostenibilidad  
 
-Planeación territorial
+Los métodos tradicionales de levantamiento de información suelen ser **costosos**, **lentos** y **difíciles de actualizar**.  
+Este proyecto explora el uso de **imágenes satelitales de acceso gratuito**, combinadas con **métodos estadísticos clásicos y de machine learning**, como una alternativa **escalable y reproducible**.
 
-Evaluación de políticas públicas
+---
 
-Estudios de cambio climático y sostenibilidad
-
-Los métodos tradicionales de levantamiento de información suelen ser costosos, lentos y difíciles de actualizar.
-Este proyecto explora el uso de imágenes satelitales de acceso gratuito, combinadas con métodos estadísticos clásicos y de machine learning, como una alternativa escalable para generar información oportuna y reproducible.
-
-🎯 Objetivo del proyecto
+## 🎯 Objetivo del proyecto
 
 Clasificar píxeles de imágenes satelitales en dos categorías:
 
-Agricultura
+- **Agricultura**
+- **No agricultura**
 
-No agricultura
+utilizando información **multiespectral**, **índices derivados** e imágenes correspondientes a **diferentes estaciones del mismo año**, con el fin de analizar el desempeño y la estabilidad de los modelos entrenados.
 
-utilizando información multiespectral, índices derivados e imágenes correspondientes a diferentes estaciones del mismo año, con el fin de analizar el desempeño y la estabilidad de los modelos entrenados.
+---
 
-🧠 Metodología general
+## 🧠 Metodología general
 
-El flujo metodológico del proyecto es el siguiente:
+### 1️⃣ Obtención de imágenes satelitales
+- Landsat 5  
+- Datos etiquetados disponibles públicamente  
 
-1. Obtención de imágenes satelitales
+### 2️⃣ Preprocesamiento
+- Corrección radiométrica  
+- Reproyección geográfica  
+- Índices espectrales: **NDVI, SAVI, MSAVI**  
+- Índices de textura mediante **GLCM**
 
-Landsat 5
+### 3️⃣ Construcción del conjunto de datos
+- Cada píxel se trata como una observación  
+- Variables espectrales + textura + etiqueta de cobertura  
 
-Datos etiquetados disponibles públicamente
+### 4️⃣ Modelos supervisados
+- Regresión logística, probit y LASSO  
+- K vecinos más cercanos (KNN)  
+- Máquinas de soporte vectorial (SVM)  
+- Bosques aleatorios (Random Forest)
 
-2. Preprocesamiento
+### 5️⃣ Evaluación
+- Repeated Hold-Out  
+- Validación cruzada K-fold (K = 10)  
+- Métricas: exactitud, sensibilidad y especificidad  
 
-Corrección radiométrica
+### 6️⃣ Generalización temporal
+- Entrenamiento en una estación  
+- Evaluación en otra estación del mismo año  
 
-Reproyección geográfica
+---
 
-Generación de índices espectrales: NDVI, SAVI, MSAVI
+## 📊 Resultados principales
 
-Cálculo de índices de textura mediante la matriz de co-ocurrencia (GLCM)
+- **Random Forest** obtuvo el mejor desempeño:
+  - Exactitud aproximada del **87%**
+  - Buen desempeño en la clase minoritaria (agricultura)
+- Diferencias importantes en **tiempos de ejecución**
+- Deterioro del desempeño al cambiar de estación, lo que resalta:
+  - Necesidad de monitoreo continuo
+  - Reentrenamiento ante cambios estacionales
 
-3. Construcción del conjunto de datos
+---
 
-Cada píxel se trata como una observación
+## 💻 Tecnologías y herramientas
 
-Variables espectrales + textura + etiqueta de cobertura
+- **Lenguaje:** R  
+- **IDE:** RStudio  
+- **Imágenes satelitales:** `raster`, `terra`, `RStoolbox`  
+- **Machine Learning:** `caret`, `randomForest`, `e1071`  
+- **Textura:** `glcm`  
+- **Computación:** programación en paralelo  
 
-4. Entrenamiento de modelos supervisados
+> ℹ️ Parte del código fue actualizado respecto a la tesis original debido a cambios o deprecación de librerías.
 
-Regresión binaria: logística, probit y LASSO
+---
 
-K vecinos más cercanos (KNN)
+## 📁 Estructura del repositorio
 
-Máquinas de soporte vectorial (SVM)
-
-Bosques aleatorios (Random Forest)
-
-5. Evaluación del poder predictivo
-
-Repeated Hold-Out
-
-Validación cruzada K-fold (K = 10)
-
-Métricas: exactitud, sensibilidad y especificidad
-
-6. Análisis de generalización temporal
-
-Modelos entrenados con datos de una estación
-
-Evaluación sobre imágenes de otra estación del mismo año
-
-📊 Resultados principales
-
-Random Forest fue el modelo con mejor desempeño:
-
-Exactitud aproximada del 87%
-
-Buen desempeño en la clase minoritaria (agricultura), a pesar del desbalance de clases
-
-Se observaron diferencias importantes en tiempos de ejecución entre modelos
-
-El desempeño se deteriora al aplicarse a imágenes de una estación distinta, lo que resalta:
-
-La importancia del monitoreo continuo
-
-La necesidad de reentrenamiento ante cambios estacionales
-
-💻 Tecnologías y herramientas
-
-Lenguaje: R
-
-IDE: RStudio
-
-Procesamiento de imágenes: raster, terra, RStoolbox
-
-Machine Learning: caret, randomForest, e1071
-
-Textura (GLCM): glcm
-
-Computación: programación en paralelo para reducción de tiempos
-
-Nota: parte del código fue actualizado respecto a la tesis original debido a cambios o deprecación de algunas librerías, priorizando funcionalidad.
-
-📁 Estructura del repositorio
+```text
 ├── doc/
 │   └── Tesis_Olivares_García_Héctor.pdf
 │
@@ -142,10 +122,10 @@ Nota: parte del código fue actualizado respecto a la tesis original debido a ca
 │   ├── modelos_clasificacion.R
 │   └── evaluacion_modelos.R
 │
-│
 └── README.md
-
-📚 Referencias
+```
+---
+## 📚 Referencias
 
 Este proyecto se basa, entre otros, en la metodología descrita en:
 
@@ -159,7 +139,7 @@ Construcción de variables
 
 Estrategias de clasificación y evaluación
 
-⚠️ Limitaciones y trabajo futuro
+## ⚠️ Limitaciones y trabajo futuro
 
 Limitaciones:
 
@@ -177,13 +157,13 @@ Evaluar imágenes de mayor resolución
 
 Automatizar procesos de reentrenamiento
 
-📎 Cómo citar este trabajo
+##📎 Cómo citar este trabajo
 
 Si utilizas este repositorio o la tesis como referencia académica:
 
 Olivares García, H. M. (2023). Métodos estadísticos de aprendizaje supervisado para la detección de cobertura del suelo a través de imágenes satelitales. Facultad de Ciencias, UNAM.
 
-👤 Autor
+## 👤 Autor
 
 Héctor Miguel Olivares García
 Actuario – UNAM

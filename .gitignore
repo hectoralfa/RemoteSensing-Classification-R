@@ -1,0 +1,20 @@
+# Datos / salidas (no versionar)
+input/
+output/
+
+# Raster / imágenes grandes comunes
+*.img
+*.tif
+*.tiff
+*.vrt
+*.aux.xml
+*.ovr
+
+# R
+.Rhistory
+.RData
+.Rproj.user/
+
+# OS
+.DS_Store
+Thumbs.db

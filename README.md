@@ -1,171 +1,169 @@
-# Métodos estadísticos de aprendizaje supervisado para la detección de cobertura del suelo a partir de imágenes satelitales
+🌎 Language: [English](README.md) | [Español](README.es.md)
 
-## 📌 Resumen 
+# Statistical Supervised Learning Methods for Land Cover Detection from Satellite Imagery
 
-Este repositorio contiene la implementación en **R** de un proyecto de **tesis de licenciatura en Actuaría (UNAM)**, cuyo objetivo es **clasificar cobertura del suelo (agricultura vs. no agricultura)** a partir de imágenes satelitales **Landsat 5**, utilizando **métodos estadísticos de aprendizaje supervisado**.
+## 📌 Abstract
 
-El trabajo adopta un enfoque **reproducible y comparativo**, integrando:
+This repository contains the **R implementation** of a **Bachelor’s thesis in Actuarial Science (UNAM)** whose objective is to **classify land cover (agriculture vs. non-agriculture)** using **Landsat 5 satellite imagery**, through **statistical supervised learning methods**.
 
-- Preprocesamiento de imágenes satelitales  
-- Generación de variables espectrales y de textura  
-- Entrenamiento de modelos de clasificación  
-- Evaluación rigurosa del desempeño predictivo  
+The work adopts a **reproducible and comparative** approach, integrating:
 
-Se pone especial énfasis en **limitaciones prácticas**, **costos computacionales** y **generalización temporal**, aspectos relevantes tanto en contextos **académicos** como **industriales**.
+- Satellite image preprocessing  
+- Spectral and texture feature engineering  
+- Training of classification models  
+- Rigorous evaluation of predictive performance  
 
----
-
-## 🎓 Contexto académico
-
-Este repositorio corresponde a la tesis:
-
-> **“Métodos estadísticos de aprendizaje supervisado para la detección de cobertura del suelo a través de imágenes satelitales”**  
-> **Autor:** Héctor Miguel Olivares García  
-> **Licenciatura en Actuaría – Facultad de Ciencias, UNAM (2023)**
-
-📄 El documento completo de la tesis se encuentra en la carpeta `doc/`.
+Special emphasis is placed on **practical limitations**, **computational costs**, and **temporal generalization**, aspects that are highly relevant in both **academic** and **industrial** contexts.
 
 ---
 
-## 🌍 Motivación y problema abordado
+## 🎓 Academic context
 
-La clasificación de cobertura del suelo es una herramienta clave para:
+This repository corresponds to the following thesis:
 
-- Monitoreo ambiental  
-- Planeación territorial  
-- Evaluación de políticas públicas  
-- Estudios de cambio climático y sostenibilidad  
+> **“Statistical supervised learning methods for land cover detection from satellite imagery”**  
+> **Author:** Héctor Miguel Olivares García  
+> **Bachelor’s Degree in Actuarial Science – Faculty of Sciences, UNAM (2023)**
 
-Los métodos tradicionales de levantamiento de información suelen ser **costosos**, **lentos** y **difíciles de actualizar**.  
-Este proyecto explora el uso de **imágenes satelitales de acceso gratuito**, combinadas con **métodos estadísticos clásicos y de machine learning**, como una alternativa **escalable y reproducible**.
+📄 The complete thesis document can be found in the `doc/` folder.
 
 ---
 
-## 🎯 Objetivo del proyecto
+## 🌍 Motivation and problem statement
 
-Clasificar píxeles de imágenes satelitales en dos categorías:
+Land cover classification is a key tool for:
 
-- **Agricultura**
-- **No agricultura**
+- Environmental monitoring  
+- Territorial planning  
+- Public policy evaluation  
+- Climate change and sustainability studies  
 
-utilizando información **multiespectral**, **índices derivados** e imágenes correspondientes a **diferentes estaciones del mismo año**, con el fin de analizar el desempeño y la estabilidad de los modelos entrenados.
+Traditional field-based data collection methods are often **expensive**, **slow**, and **difficult to update**.  
+This project explores the use of **freely available satellite imagery**, combined with **classical statistical and machine learning methods**, as a **scalable and reproducible** alternative.
 
 ---
 
-## 🧠 Metodología general
+## 🎯 Project objective
 
-### 1️⃣ Obtención de imágenes satelitales
+To classify satellite image pixels into two categories:
+
+- **Agriculture**
+- **Non-agriculture**
+
+using **multispectral information**, **derived indices**, and imagery from **different seasons of the same year**, in order to analyze the performance and stability of the trained models.
+
+---
+
+## 🧠 General methodology
+
+### 1️⃣ Satellite image acquisition
 - Landsat 5  
-- Datos etiquetados disponibles públicamente  
+- Publicly available labeled data  
 
-### 2️⃣ Preprocesamiento
-- Corrección radiométrica  
-- Reproyección geográfica  
-- Índices espectrales: **NDVI, SAVI, MSAVI**  
-- Índices de textura mediante **GLCM**
+### 2️⃣ Preprocessing
+- Radiometric correction  
+- Geographic reprojection  
+- Spectral indices: **NDVI, SAVI, MSAVI**  
+- Texture indices using **GLCM**
 
-### 3️⃣ Construcción del conjunto de datos
-- Cada píxel se trata como una observación  
-- Variables espectrales + textura + etiqueta de cobertura  
+### 3️⃣ Dataset construction
+- Each pixel is treated as an observation  
+- Spectral + texture variables + land cover label  
 
-### 4️⃣ Modelos supervisados
-- Regresión logística, probit y LASSO  
-- K vecinos más cercanos (KNN)  
-- Máquinas de soporte vectorial (SVM)  
-- Bosques aleatorios (Random Forest)
+### 4️⃣ Supervised models
+- Logistic, probit, and LASSO regression  
+- K-Nearest Neighbors (KNN)  
+- Support Vector Machines (SVM)  
+- Random Forest  
 
-### 5️⃣ Evaluación
+### 5️⃣ Evaluation
 - Repeated Hold-Out  
-- Validación cruzada K-fold (K = 10)  
-- Métricas: exactitud, sensibilidad y especificidad  
+- K-fold cross-validation (K = 10)  
+- Metrics: accuracy, sensitivity, and specificity  
 
-### 6️⃣ Generalización temporal
-- Entrenamiento en una estación  
-- Evaluación en otra estación del mismo año  
-
----
-
-## 📊 Resultados principales
-
-- **Random Forest** obtuvo el mejor desempeño:
-  - Exactitud aproximada del **87%**
-  - Buen desempeño en la clase minoritaria (agricultura)
-- Diferencias importantes en **tiempos de ejecución**
-- Deterioro del desempeño al cambiar de estación, lo que resalta:
-  - Necesidad de monitoreo continuo
-  - Reentrenamiento ante cambios estacionales
+### 6️⃣ Temporal generalization
+- Training on one season  
+- Evaluation on a different season of the same year  
 
 ---
 
-## 💻 Tecnologías y herramientas
+## 📊 Main results
 
-- **Lenguaje:** R  
+- **Random Forest** achieved the best performance:
+  - Approximate accuracy of **87%**
+  - Strong performance on the minority class (agriculture)
+- Significant differences in **execution times**
+- Performance degradation when switching seasons, highlighting:
+  - The need for continuous monitoring
+  - The importance of retraining under seasonal changes
+
+---
+
+## 💻 Technologies and tools
+
+- **Language:** R  
 - **IDE:** RStudio  
-- **Imágenes satelitales:** `raster`, `terra`, `RStoolbox`  
+- **Satellite imagery:** `raster`, `terra`, `RStoolbox`  
 - **Machine Learning:** `caret`, `randomForest`, `e1071`  
-- **Textura:** `glcm`  
-- **Computación:** programación en paralelo  
+- **Texture analysis:** `glcm`  
+- **Computing:** parallel programming  
 
-> ℹ️ Parte del código fue actualizado respecto a la tesis original debido a cambios o deprecación de librerías.
+> ℹ️ Some parts of the code were updated with respect to the original thesis due to library changes or deprecations.
 
 ---
 
-## 📁 Estructura del repositorio
+## 📁 Repository structure
 
 ```text
 ├── doc/
 │   └── Tesis_Olivares_García_Héctor.pdf
 │
 ├── scripts/
-│   ├── preprocesamiento.R
-│   ├── construccion_dataset.R
-│   ├── modelos_clasificacion.R
-│   └── evaluacion_modelos.R
+│   ├── 00_func.R
+│   ├── 01_preproc.R
+│   ├── 02_aplication.R
+│   └── 03_examples.R
 │
 └── README.md
 ```
----
-## 📚 Referencias
+📚 References
 
-Este proyecto se basa, entre otros, en la metodología descrita en:
+This project is based, among others, on the methodology described in:
 
 Kamusoko, C. (2013, 2019). Remote Sensing Image Classification in R
 
-Dicho trabajo fue una referencia clave para:
+This work was a key reference for:
 
-Preprocesamiento de imágenes
+  - Image preprocessing
 
-Construcción de variables
+  - Feature construction
 
-Estrategias de clasificación y evaluación
+  - Classification and evaluation strategies
 
-## ⚠️ Limitaciones y trabajo futuro
+⚠️ Limitations and future work
+Limitations
 
-Limitaciones:
+  - Specific geographic region (Harare, Zimbabwe)
 
-Región geográfica específica (Harare, Zimbabue)
+  - Deep learning models were not explored
 
-No se exploran modelos de deep learning
+  - Temporal generalization remains a major challenge
 
-La generalización temporal presenta retos importantes
+Future work
 
-Trabajo futuro:
+  - Incorporate spatial or temporal models
 
-Incorporar modelos espaciales o temporales
+  - Evaluate higher-resolution imagery
 
-Evaluar imágenes de mayor resolución
+  - Automate retraining pipelines
 
-Automatizar procesos de reentrenamiento
+📎 How to cite this work
 
-##📎 Cómo citar este trabajo
+If you use this repository or the thesis as an academic reference:
 
-Si utilizas este repositorio o la tesis como referencia académica:
+Olivares García, H. M. (2023). Statistical supervised learning methods for land cover detection from satellite imagery. Faculty of Sciences, UNAM.
 
-Olivares García, H. M. (2023). Métodos estadísticos de aprendizaje supervisado para la detección de cobertura del suelo a través de imágenes satelitales. Facultad de Ciencias, UNAM.
-
-## 👤 Autor
+👤 Author
 
 Héctor Miguel Olivares García
-Actuario – UNAM
-
-Intereses: Machine Learning, Estadística Aplicada, Imágenes Satelitales, Ciencia de Datos
+Actuary – UNAM

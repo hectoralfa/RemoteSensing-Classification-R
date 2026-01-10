@@ -1,201 +1,173 @@
-# Análisis Espacial del Crimen en la CDMX
+🌎 Language: [English](README.md) | [Español](README.es.md)
 
-Análisis geoespacial de delitos en la Ciudad de México utilizando KDE sobre red vial y Getis-Ord Gi*.  
-El proyecto genera mapas de **hotspots** y **coldspots** de crimen a partir de puntos de robo, empleando una metodología de análisis espacial en redes urbanas.
+# Métodos estadísticos de aprendizaje supervisado para la detección de cobertura del suelo a partir de imágenes satelitales
+
+## 📌 Resumen 
+
+Este repositorio contiene la implementación en **R** de un proyecto de **tesis de licenciatura en Actuaría (UNAM)**, cuyo objetivo es **clasificar cobertura del suelo (agricultura vs. no agricultura)** a partir de imágenes satelitales **Landsat 5**, utilizando **métodos estadísticos de aprendizaje supervisado**.
+
+El trabajo adopta un enfoque **reproducible y comparativo**, integrando:
+
+- Preprocesamiento de imágenes satelitales  
+- Generación de variables espectrales y de textura  
+- Entrenamiento de modelos de clasificación  
+- Evaluación rigurosa del desempeño predictivo  
+
+Se pone especial énfasis en **limitaciones prácticas**, **costos computacionales** y **generalización temporal**, aspectos relevantes tanto en contextos **académicos** como **industriales**.
 
 ---
 
-## 🚨 Tablero interactivo
+## 🎓 Contexto académico
 
-> 📊 **Tablero interactivo disponible aquí:**  
-> 👉 [🔗 HAZ CLIC PARA VER EL TABLERO](https://hectoralfa.github.io/Spatial-Crime-Analysis-CDMX/)
+Este repositorio corresponde a la tesis:
 
-o utiliza este botón:
+> **“Métodos estadísticos de aprendizaje supervisado para la detección de cobertura del suelo a través de imágenes satelitales”**  
+> **Autor:** Héctor Miguel Olivares García  
+> **Licenciatura en Actuaría – Facultad de Ciencias, UNAM (2023)**
 
-[![Ver tablero interactivo](https://img.shields.io/badge/Ver%20tablero-Interactivo-blue?style=for-the-badge&logo=Tableau)](https://hectoralfa.github.io/Spatial-Crime-Analysis-CDMX/)
+📄 El documento completo de la tesis se encuentra en la carpeta `doc/`.
 
 ---
 
-## 🧩 Descripción general
+## 🌍 Motivación y problema abordado
 
-Este proyecto analiza la **distribución espacial de delitos de robo en la Ciudad de México** utilizando la **red vial** como soporte principal. A través de técnicas de:
+La clasificación de cobertura del suelo es una herramienta clave para:
 
-- Análisis de red vial  
-- Segmentación en *lixels*  
-- Representación como grafo  
-- **Kernel Density Estimation (KDE)** sobre red  
-- Estadístico **Getis-Ord Gi\*** para identificación de *hotspots*  
+- Monitoreo ambiental  
+- Planeación territorial  
+- Evaluación de políticas públicas  
+- Estudios de cambio climático y sostenibilidad  
 
-se construye un **tablero interactivo** que permite explorar zonas con mayor riesgo en los robos más comunes:  
-**robo a transporte/pasajero, robo en vía pública y robo a negocio** a lo largo de las vialidades de la CDMX.
-
-El objetivo es aportar una herramienta útil para:
-
-- **Diseño y evaluación de políticas públicas**
-- **Áreas de seguridad, análisis de riesgo y planeación urbana**
+Los métodos tradicionales de levantamiento de información suelen ser **costosos**, **lentos** y **difíciles de actualizar**.  
+Este proyecto explora el uso de **imágenes satelitales de acceso gratuito**, combinadas con **métodos estadísticos clásicos y de machine learning**, como una alternativa **escalable y reproducible**.
 
 ---
 
 ## 🎯 Objetivo del proyecto
 
-Desarrollar una **herramienta digital geoespacial** que:
+Clasificar píxeles de imágenes satelitales en dos categorías:
 
-- Recopile, procese y analice información sobre **redes viales y delitos de robo**.  
-- Estime la **concentración de eventos delictivos** sobre la red vial, no solo sobre el espacio continuo.  
-- Identifique **tramos de calle** con riesgo elevado mediante técnicas estadísticas (Getis-Ord Gi\*).  
-- Permita **visualizar los resultados** de forma clara y accesible mediante un **tablero interactivo**.
+- **Agricultura**
+- **No agricultura**
 
-> 🔗 Acceso rápido: [Ver tablero interactivo](https://hectoralfa.github.io/Spatial-Crime-Analysis-CDMX/)
+utilizando información **multiespectral**, **índices derivados** e imágenes correspondientes a **diferentes estaciones del mismo año**, con el fin de analizar el desempeño y la estabilidad de los modelos entrenados.
 
 ---
 
-## 🧠 Contexto y motivación
+## 🧠 Metodología general
 
-El estudio del crimen y la violencia requiere una mirada **integral** que combine:
+### 1️⃣ Obtención de imágenes satelitales
+- Landsat 5  
+- Datos etiquetados disponibles públicamente  
 
-- Factores **sociales y económicos**
-- Características del **entorno urbano**
-- Estructura y conectividad de la **red vial**
+### 2️⃣ Preprocesamiento
+- Corrección radiométrica  
+- Reproyección geográfica  
+- Índices espectrales: **NDVI, SAVI, MSAVI**  
+- Índices de textura mediante **GLCM**
 
-En lugar de analizar solo puntos en un mapa, este proyecto considera **por dónde se mueve la vida cotidiana: las calles y carreteras**. Esto permite:
+### 3️⃣ Construcción del conjunto de datos
+- Cada píxel se trata como una observación  
+- Variables espectrales + textura + etiqueta de cobertura  
 
-- Estimar mejor la **exposición al riesgo**  
-- Detectar **corredores de violencia**  
-- Apoyar decisiones de **seguridad y planeación urbana** con evidencia espacial.
+### 4️⃣ Modelos supervisados
+- Regresión logística, probit y LASSO  
+- K vecinos más cercanos (KNN)  
+- Máquinas de soporte vectorial (SVM)  
+- Bosques aleatorios (Random Forest)
 
----
+### 5️⃣ Evaluación
+- Repeated Hold-Out  
+- Validación cruzada K-fold (K = 10)  
+- Métricas: exactitud, sensibilidad y especificidad  
 
-## 🗺️ Análisis de la red vial
-
-La base del proyecto es la **red vial de la CDMX**, construida a partir de:
-
-- Información del **INEGI**  
-
-Se realiza un preprocesamiento para:
-
-- Corregir segmentos desconectados  
-- Homogeneizar la red  
-- Preparar los datos para el análisis sobre *lixels* y grafos
-
----
-
-## 📏 Lixels: segmentando la red
-
-Una vez limpia la red, se divide en **segmentos pequeños y uniformes** llamados *lixels* (line + pixel).
-
-¿Por qué es útil?
-
-- Permite analizar la red a una escala más **fina y homogénea**.  
-- Facilita calcular **densidades de robos por tramo**.  
-- Ayuda a localizar con mayor precisión **en qué parte de una calle se concentran los eventos**.
-
-Cada lixel se convierte en una unidad de análisis sobre la cual se calculan indicadores de riesgo.
+### 6️⃣ Generalización temporal
+- Entrenamiento en una estación  
+- Evaluación en otra estación del mismo año  
 
 ---
 
-## 🔗 Representación como grafo
+## 📊 Resultados principales
 
-La red vial también se representa como un **grafo**:
-
-- **Nodos** → cruces o intersecciones  
-- **Aristas** → tramos de calle entre intersecciones  
-
-Esta representación permite:
-
-- Modelar la **conectividad** de la ciudad  
-- Entender cómo se pueden **propagar fenómenos** a lo largo de la red  
-- Integrar métricas de red (distancias, accesibilidad, rutas mínimas, etc.)
+- **Random Forest** obtuvo el mejor desempeño:
+  - Exactitud aproximada del **87%**
+  - Buen desempeño en la clase minoritaria (agricultura)
+- Diferencias importantes en **tiempos de ejecución**
+- Deterioro del desempeño al cambiar de estación, lo que resalta:
+  - Necesidad de monitoreo continuo
+  - Reentrenamiento ante cambios estacionales
 
 ---
 
-## 📈 Kernel Density Estimation (KDE) sobre la red vial
+## 💻 Tecnologías y herramientas
 
-Para analizar si los robos se concentran en ciertas zonas, se utiliza **Kernel Density Estimation (KDE)**, pero en lugar de aplicarlo al espacio continuo, se aplica:
+- **Lenguaje:** R  
+- **IDE:** RStudio  
+- **Imágenes satelitales:** `raster`, `terra`, `RStoolbox`  
+- **Machine Learning:** `caret`, `randomForest`, `e1071`  
+- **Textura:** `glcm`  
+- **Computación:** programación en paralelo  
 
-> ✅ **Directamente sobre la red vial**, utilizando los *lixels* como soporte.
-
-### ¿Qué hace KDE en este proyecto?
-
-- Cada evento de robo genera una “mancha” de influencia sobre la red.  
-- Si varias manchas se superponen en un mismo tramo, se estima una **mayor densidad de robos**.  
-- El resultado es un mapa de **intensidad de robos por tramo de calle**.
-
-Se consideran:
-
-- **Ancho de banda (*bandwidth*)**: controla el tamaño de la mancha.  
-- **Tipo de kernel**: en este caso, se utiliza el **kernel de Epanechnikov**, que:
-  - Minimiza el **error cuadrático medio integrado (MISE)**  
-  - Tiene **soporte compacto**, lo que ayuda a reducir el costo computacional.
+> ℹ️ Parte del código fue actualizado respecto a la tesis original debido a cambios o deprecación de librerías.
 
 ---
 
-## 🔥 Identificación de hotspots: Getis-Ord Gi\*
-
-KDE muestra dónde hay **concentraciones altas**, pero no dice si estas son **estadísticamente significativas**.
-
-Para eso se utiliza el estadístico **Getis-Ord Gi\*** sobre los lixels, con el fin de:
-
-- Distinguir entre zonas que solo “parecen” densas  
-- Y aquellas que, **estadísticamente**, tienen **muchos más robos de lo esperado** en comparación con sus vecinos.
-
-El resultado se visualiza en forma de:
-
-- 🔴 **Zonas calientes (hot spots)**: tramos con concentración significativamente alta  
-- 🔵 **Zonas frías (cold spots)**: tramos con concentración significativamente baja  
-
-Estos resultados alimentan el **tablero interactivo** para una interpretación más intuitiva.
-
----
-
-## 🧪 Datos utilizados
-
-La base de delitos se construyó a partir de:
-
-- Registros de las carpetas de investigación de la **Fiscalía de la Ciudad de México**  
-- Incluye **tres tipos de robo:** robo a transeúnte, robo a pasajero y robo a negocio  
-- Cobertura: **Ciudad de México**  
-- Periodo: **enero–diciembre de 2023**  
-
-La red vial proviene de:
-
-- **INEGI** – [https://www.inegi.org.mx](https://www.inegi.org.mx)
-
----
-
-## 🧮 Herramientas y tecnologías
-
-Algunas de las herramientas utilizadas:
-
-- 📦 **R**  
-  - Paquete **`spNetwork`** para KDE sobre red vial  
-- 🧪 Librerías para análisis estadístico y espacial  
-- 📊 **d3.js** para visualización interactiva  
-- 🌐 **HTML/CSS/JavaScript** para la construcción de la interfaz del tablero
-
----
-
-## 📂 Estructura del repositorio
+## 📁 Estructura del repositorio
 
 ```text
-.
-├── estilos/
-│   ├── general.css
-│   └── mapa.css
-├── imagenes/
+├── doc/
+│   └── Tesis_Olivares_García_Héctor.pdf
+│
 ├── scripts/
-│   ├── capa.js
-│   ├── card-capas.js
-│   ├── eventos_selector.js
-│   ├── footer.js
-│   ├── geocoder.js
-│   ├── header.js
-│   ├── main.js
-│   ├── mapa_config.js
-│   └── restablecer.js
-├── scripts_r/
-│   ├── crime_analysis.R
-│   └── funciones.R
-├── docs/
-│   └── metodologia.md
-├── index.html
+│   ├── preprocesamiento.R
+│   ├── construccion_dataset.R
+│   ├── modelos_clasificacion.R
+│   └── evaluacion_modelos.R
+│
 └── README.md
+```
+---
+## 📚 Referencias
+
+Este proyecto se basa, entre otros, en la metodología descrita en:
+
+Kamusoko, C. (2013, 2019). Remote Sensing Image Classification in R
+
+Dicho trabajo fue una referencia clave para:
+
+Preprocesamiento de imágenes
+
+Construcción de variables
+
+Estrategias de clasificación y evaluación
+
+## ⚠️ Limitaciones y trabajo futuro
+
+Limitaciones:
+
+Región geográfica específica (Harare, Zimbabue)
+
+No se exploran modelos de deep learning
+
+La generalización temporal presenta retos importantes
+
+Trabajo futuro:
+
+Incorporar modelos espaciales o temporales
+
+Evaluar imágenes de mayor resolución
+
+Automatizar procesos de reentrenamiento
+
+##📎 Cómo citar este trabajo
+
+Si utilizas este repositorio o la tesis como referencia académica:
+
+Olivares García, H. M. (2023). Métodos estadísticos de aprendizaje supervisado para la detección de cobertura del suelo a través de imágenes satelitales. Facultad de Ciencias, UNAM.
+
+## 👤 Autor
+
+Héctor Miguel Olivares García
+Actuario – UNAM
+
+Intereses: Machine Learning, Estadística Aplicada, Imágenes Satelitales, Ciencia de Datos

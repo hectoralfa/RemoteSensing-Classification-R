@@ -119,10 +119,10 @@ utilizando información **multiespectral**, **índices derivados** e imágenes c
 │   └── Tesis_Olivares_García_Héctor.pdf
 │
 ├── scripts/
-│   ├── preprocesamiento.R
-│   ├── construccion_dataset.R
-│   ├── modelos_clasificacion.R
-│   └── evaluacion_modelos.R
+│   ├── 00_func.R
+│   ├── 01_preproc.R
+│   ├── 02_aplication.R
+│   └── 03_examples.R
 │
 └── README.md
 ```
@@ -135,29 +135,29 @@ Kamusoko, C. (2013, 2019). Remote Sensing Image Classification in R
 
 Dicho trabajo fue una referencia clave para:
 
-Preprocesamiento de imágenes
+  - Preprocesamiento de imágenes
 
-Construcción de variables
+  - Construcción de variables
 
-Estrategias de clasificación y evaluación
+  - Estrategias de clasificación y evaluación
 
 ## ⚠️ Limitaciones y trabajo futuro
 
 Limitaciones:
 
-Región geográfica específica (Harare, Zimbabue)
+  - Región geográfica específica (Harare, Zimbabue)
 
-No se exploran modelos de deep learning
+  - No se exploran modelos de deep learning
 
-La generalización temporal presenta retos importantes
+  - La generalización temporal presenta retos importantes
 
 Trabajo futuro:
 
-Incorporar modelos espaciales o temporales
+  - Incorporar modelos espaciales o temporales
 
-Evaluar imágenes de mayor resolución
+  - Evaluar imágenes de mayor resolución
 
-Automatizar procesos de reentrenamiento
+  - Automatizar procesos de reentrenamiento
 
 ##📎 Cómo citar este trabajo
 
